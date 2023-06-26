@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mymatlab:
+    image: mathworks/matlab:r2023a
+    # Add any additional configuration for the MATLAB service if needed
+
+  mymongo:
+    image: mongo
+    ports:
+      - "5000:27017"
+
+  myreader:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mymongo
+      - mymatlab
+    ports:
+      - "5002:5001"
